@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/css/style.css">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>User List (Admin)</title>
+  </head>
+  <body>
+    <h1>รายการผู้ใช้ (User List)</h1>
+
+    <table border="1" cellpadding="5">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>FullName</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(u) { %>
+          <tr>
+            <td><%= u.id %></td>
+            <td><%= u.username %></td>
+            <td><%= u.fullname %></td>
+            <td><%= u.createdAt %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <p><a href="/admin/home">กลับหน้า Admin Home</a></p>
+  </body>
+</html>

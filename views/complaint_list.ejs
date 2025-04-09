@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<link rel="stylesheet" href="/css/style.css">
 <html>
   <head>
     <meta charset="utf-8">
@@ -23,7 +24,6 @@
         <% complaints.forEach(function(c) { %>
           <tr>
             <td><%= c.id %></td>
-            <!-- c.user เป็น object user ถ้าเราทำ include: { user: true } -->
             <td><%= c.user ? c.user.username : '' %></td>
             <td><%= c.subject %></td>
             <td><%= c.detail || '' %></td>
@@ -45,6 +45,7 @@
       </tbody>
     </table>
 
-    <p><a href="/admin/login">ออกจากระบบ (ไปหน้า Admin Login)</a></p>
+    <!-- ลิงก์ไปหน้า Admin Home -->
+    <p><a href="/admin/home">กลับหน้า Admin Home</a></p>
   </body>
 </html>

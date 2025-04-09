@@ -27,12 +27,12 @@ router.post("/login", async (req, res) => {
   // แปลง citizenNumber เป็น sha256 (เหมือนขั้นตอนข้างบน)
   const hashedCitizenNumber = crypto
     .createHash('sha256')
-    .update(citizenNumber + "SOME_STATIC_SALT")
+    .update(citizenNumber + "SALT")
     .digest('hex');
 
   // หา user ด้วย hashedCitizenNumber (unique)
   const user = await prisma.user.findUnique({
-    where: { hashedCitizen: hashedCitizenNumber },
+    where: { citizenNumber: hashedCitizenNumber },
   });
   if (!user) {
     return res.send("ไม่พบผู้ใช้ในระบบ (citizenNumber ผิด)");
@@ -50,7 +50,7 @@ router.post("/login", async (req, res) => {
 
 // หน้า Home user
 router.get("/home", ensureUserLoggedIn, (req, res) => {
-  res.render("home_user");
+  res.render("home");
 });
 
 // หน้า create complaint
@@ -67,7 +67,7 @@ router.post("/complaint/create", ensureUserLoggedIn, async (req, res) => {
       userId: req.session.userId,
     },
   });
-  return res.redirect("/complaint/history");
+  return res.redirect("/home");
 });
 
 // ------------------ Register ------------------ //
@@ -82,24 +82,23 @@ router.post("/register", async (req, res) => {
   try {
     const { username,fullname,citizenNumber, password } = req.body;
 
-    // hash password ด้วย bcrypt (เพื่อป้องกัน brute force)
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("hashedPassword", hashedPassword);
 
-    // hash citizenNumber แบบ stable (เช่น SHA-256)
     const hashedCitizenNumber = crypto
       .createHash("sha256")
-      .update(citizenNumber + "SOME_STATIC_SALT") // ถ้าต้องการ salt
+      .update(citizenNumber + "SALT") 
       .digest("hex");
 
+      console.log("hashedCitizenNumber", hashedCitizenNumber);
     await prisma.user.create({
       data: {
         username,
         fullname,
-        hashedCitizen: hashedCitizenNumber,
+        citizenNumber: hashedCitizenNumber,
         password: hashedPassword,
-      },
+      }
     });
-
     // ลงทะเบียนสำเร็จ -> ไปหน้า login
     res.redirect("/login");
   } catch (err) {
