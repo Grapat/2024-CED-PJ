@@ -1,0 +1,40 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"   // ใครจะใช้ mysql หรือ sqlite ก็เปลี่ยนตามจริง
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  username   String
+  password   String
+  fullname   String?
+  complaints Complaint[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String
+  password  String
+  fullname  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Complaint {
+  id        Int      @id @default(autoincrement())
+  subject   String
+  detail    String?
+  status    String   @default("pending")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

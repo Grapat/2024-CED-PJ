@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Complaint List (Admin)</title>
+  </head>
+  <body>
+    <h1>รายการคำร้องจากผู้ใช้ (Admin)</h1>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>หัวข้อ</th>
+          <th>รายละเอียด</th>
+          <th>สถานะ</th>
+          <th>เปลี่ยนสถานะ</th>
+          <th>วันที่ร้องทุกข์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% complaints.forEach(function(c) { %>
+          <tr>
+            <td><%= c.id %></td>
+            <!-- c.user เป็น object user ถ้าเราทำ include: { user: true } -->
+            <td><%= c.user ? c.user.username : '' %></td>
+            <td><%= c.subject %></td>
+            <td><%= c.detail || '' %></td>
+            <td><%= c.status %></td>
+            <td>
+              <form action="/admin/complaints/update-status" method="POST" style="display:inline;">
+                <input type="hidden" name="complaintId" value="<%= c.id %>" />
+                <select name="status">
+                  <option value="pending" <%= c.status === 'pending' ? 'selected' : '' %>>pending</option>
+                  <option value="in-progress" <%= c.status === 'in-progress' ? 'selected' : '' %>>in-progress</option>
+                  <option value="solved" <%= c.status === 'solved' ? 'selected' : '' %>>solved</option>
+                </select>
+                <button type="submit">Update</button>
+              </form>
+            </td>
+            <td><%= c.createdAt %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <p><a href="/admin/login">ออกจากระบบ (ไปหน้า Admin Login)</a></p>
+  </body>
+</html>

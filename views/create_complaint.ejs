@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Create Complaint</title>
+  </head>
+  <body>
+    <h1>สร้างคำร้องใหม่</h1>
+    <form action="/complaint/create" method="POST">
+      <p>
+        <label>หัวข้อ (Subject):</label><br>
+        <input type="text" name="subject" required>
+      </p>
+      <p>
+        <label>รายละเอียด (Detail):</label><br>
+        <textarea name="detail" rows="4" cols="50"></textarea>
+      </p>
+      <button type="submit">ส่งคำร้อง</button>
+    </form>
+    <p><a href="/home">กลับหน้าหลัก</a></p>
+  </body>
+</html>
