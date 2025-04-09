@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Register</title>
+  </head>
+  <body>
+    <h1>สมัครสมาชิก (Register)</h1>
+    
+    <form action="/register" method="POST">    
+      <p>
+        <label>Username:</label><br>
+        <input type="text" name="username" required>
+      </p>
+
+      <p>
+        <label>Password:</label><br>
+        <input type="password" name="password" required>
+      </p>
+      
+      <p>
+        <label>Citizen Number (13 digits):</label><br>
+        <input type="text" name="citizenNumber" maxlength="13" pattern="[0-9]{13}" required>
+      </p>
+
+      <p>
+        <label>Full Name (optional):</label><br>
+        <input type="text" name="fullname">
+      </p>
+      
+      <button type="submit">Register</button>
+    </form>
+    
+    <p><a href="/login">กลับไปหน้า Login</a></p>
+  </body>
+</html>

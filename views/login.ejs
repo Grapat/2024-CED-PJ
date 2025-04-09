@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Login User</title>
   </head>
   <body>
     <h1>Login ผู้ใช้</h1>
     <form action="/login" method="POST">
       <p>
-        <label>Username: </label>
-        <input type="text" name="username" />
+        <label>Citizen number:</label><br>
+        <input type="text" name="citizenNumber" required>
       </p>
       <p>
-        <label>Password: </label>
-        <input type="password" name="password" />
+        <label>Password:</label><br>
+        <input type="password" name="password" required>
       </p>
       <button type="submit">เข้าสู่ระบบ</button>
     </form>
+
+    <!-- ลิงก์ไปหน้า Register -->
+    <p>ยังไม่มีบัญชีใช่ไหม? <a href="/register">สมัครสมาชิก</a></p>
   </body>
 </html>
